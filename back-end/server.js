@@ -16,10 +16,20 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
-const a = require('userSchema');
+//const a = require('userSchema');
 
-server.post('/register', (req, res) => {
-        req.body
+server.post('/register', async (req, res) => {
+  const user = new userSchema();
+
+  user.username = req.body.user;
+  user.password = req.body.pass;
+
+  await user.save();
+
+  res.json({
+      message: 'success',
+      code: 200
+  })
 });
 
 
